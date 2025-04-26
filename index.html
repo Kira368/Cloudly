@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloudly — Manage Your Business in One Place</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Global Styles */
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4cc9f0;
+      --dark: #212529;
+      --light: #f8f9fa;
+      --success: #4bb543;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      color: var(--dark);
+      line-height: 1.6;
+      background-color: #fff;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    
+    .btn-outline:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    /* Header */
+    header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo i {
+      margin-right: 10px;
+      color: var(--accent);
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 30px;
+    }
+    
+    .nav-links a {
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .auth-buttons .btn {
+      margin-left: 15px;
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 180px 0 100px;
+      background: linear-gradient(135deg, #f5f7ff 0%, #e8ecff 100%);
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+    
+    .hero p {
+      font-size: 20px;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+    
+    .hero-buttons {
+      margin-bottom: 50px;
+    }
+    
+    .hero-buttons .btn {
+      margin: 0 10px;
+    }
+    
+    .hero-image {
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 10px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transform: perspective(1000px) rotateX(10deg);
+      transition: transform 0.5s;
+    }
+    
+    .hero-image:hover {
+      transform: perspective(1000px) rotateX(0);
+    }
+    
+    .hero-image img {
+      width: 100%;
+      display: block;
+    }
+    
+    /* Trust Badges */
+    .trust-badges {
+      padding: 40px 0;
+      text-align: center;
+      background-color: white;
+    }
+    
+    .trust-badges p {
+      color: #777;
+      margin-bottom: 20px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .trust-logos {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      align-items: center;
+    }
+    
+    .trust-logos img {
+      height: 30px;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+    
+    .trust-logos img:hover {
+      opacity: 1;
+    }
+    
+    /* Features */
+    .features {
+      padding: 100px 0;
+      background-color: #f9fafc;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-title h2 {
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+    
+    .section-title p {
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .feature-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(67, 97, 238, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: var(--primary);
+      font-size: 24px;
+    }
+    
+    .feature-card h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+    
+    .feature-card p {
+      color: #666;
+    }
+    
+    /* How It Works */
+    .how-it-works {
+      padding: 100px 0;
+      background-color: white;
+    }
+    
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 50px;
+    }
+    
+    .step {
+      flex: 0 0 calc(33.333% - 20px);
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    
+    .step-number {
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 20px;
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 25px;
+      left: 50%;
+      width: calc(100% - 50px);
+      height: 2px;
+      background-color: #eee;
+      z-index: 0;
+    }
+    
+    .step h3 {
+      margin-bottom: 15px;
+    }
+    
+    .step p {
+      color: #666;
+      padding: 0 20px;
+    }
+    
+    /* Pricing */
+    .pricing {
+      padding: 100px 0;
+      background-color: #f9fafc;
+    }
+    
+    .pricing-plans {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 50px;
+    }
+    
+    .pricing-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 40px 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      max-width: 350px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+    
+    .pricing-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .pricing-card.popular {
+      border: 2px solid var(--primary);
+    }
+    
+    .popular-badge {
+      position: absolute;
+      top: -15px;
+      right: 20px;
+      background-color: var(--primary);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    .pricing-card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    
+    .price {
+      font-size: 48px;
+      font-weight: bold;
+      margin: 20px 0;
+      color: var(--dark);
+    }
+    
+    .price span {
+      font-size: 16px;
+      color: #666;
+      font-weight: normal;
+    }
+    
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+    
+    .pricing-features li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+    }
+    
+    .pricing-features li i {
+      margin-right: 10px;
+      color: var(--success);
+    }
+    
+    /* Testimonials */
+    .testimonials {
+      padding: 100px 0;
+      background-color: white;
+    }
+    
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    
+    .testimonial-card {
+      background-color: #f9fafc;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 20px;
+      color: #555;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+    
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 15px;
+    }
+    
+    .author-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .author-info h4 {
+      margin-bottom: 5px;
+    }
+    
+    .author-info p {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      text-align: center;
+    }
+    
+    .cta-section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    .cta-section p {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
+    }
+    
+    .cta-section .btn {
+      background-color: white;
+      color: var(--primary);
+      font-weight: bold;
+    }
+    
+    .cta-section .btn:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: #aaa;
+      padding: 60px 0 20px;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-column h3 {
+      color: white;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s;
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+    }
+    
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background-color: white;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 500px;
+      padding: 40px;
+      position: relative;
+      animation: modalFadeIn 0.3s;
+    }
+    
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+    }
+    
+    .modal h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .submit-btn:hover {
+      background-color: var(--secondary);
+    }
+    
+    /* Responsiveness */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+      
+      .step {
+        flex: 0 0 calc(50% - 15px);
+      }
+      
+      .step:not(:last-child)::after {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        padding: 15px 0;
+      }
+      
+      .nav-links {
+        margin: 20px 0;
+      }
+      
+      .auth-buttons {
+        margin-top: 10px;
+      }
+      
+      .hero {
+        padding: 150px 0 80px;
+      }
+      
+      .hero h1 {
+        font-size: 32px;
+      }
+      
+      .hero p {
+        font-size: 18px;
+      }
+      
+      .step {
+        flex: 0 0 100%;
+      }
+      
+      .pricing-card {
+        max-width: 100%;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .nav-links li {
+        margin: 10px 0;
+      }
+      
+      .hero-buttons .btn {
+        display: block;
+        margin: 10px auto;
+        width: 80%;
+      }
+      
+      .modal-content {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <i class="fas fa-cloud"></i> Cloudly
+        </div>
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+        </ul>
+        <div class="auth-buttons">
+          <button class="btn btn-outline">Login</button>
+          <button class="btn btn-primary" id="signup-btn">Sign Up</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Manage Your Business in One Place</h1>
+      <p>Cloudly is an all-in-one SaaS solution for automating your business processes, analytics, and team management.</p>
+      <div class="hero-buttons">
+        <button class="btn btn-primary" id="hero-signup-btn">Start Free Trial</button>
+        <button class="btn btn-outline">Learn More</button>
+      </div>
+      <div class="hero-image">
+        <img src="https://via.placeholder.com/800x450?text=Cloudly+Dashboard" alt="Cloudly Interface">
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges -->
+  <section class="trust-badges">
+    <div class="container">
+      <p>Trusted by companies worldwide</p>
+      <div class="trust-logos">
+        <img src="https://via.placeholder.com/150x50?text=Company+1" alt="Company 1 Logo">
+        <img src="https://via.placeholder.com/150x50?text=Company+2" alt="Company 2 Logo">
+        <img src="https://via.placeholder.com/150x50?text=Company+3" alt="Company 3 Logo">
+        <img src="https://via.placeholder.com/150x50?text=Company+4" alt="Company 4 Logo">
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>Powerful Features for Your Business</h2>
+        <p>All the tools you need in one place</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Real-time Analytics</h3>
+          <p>Get detailed reports and analytics on all key business metrics.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3>Process Automation</h3>
+          <p>Set up automated workflows and eliminate routine tasks.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Team Management</h3>
+          <p>Organize employee work, track tasks and projects.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-plug"></i>
+          </div>
+          <h3>Integrations</h3>
+          <p>Connect to popular services: Slack, Google Workspace, Trello and more.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Security</h3>
+          <p>Your data is protected with advanced encryption technologies.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3>Mobile App</h3>
+          <p>Manage your business from anywhere with our mobile apps.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-title">
+        <h2>How It Works</h2>
+        <p>Getting started with Cloudly is easy</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Sign Up</h3>
+          <p>Create an account and choose the right pricing plan.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Setup</h3>
+          <p>Add your data and connect necessary integrations.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Launch</h3>
+          <p>Start using all platform features for your business.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-title">
+        <h2>Flexible Pricing Plans</h2>
+        <p>Choose the option that's right for you</p>
+      </div>
+      <div class="pricing-plans">
+        <div class="pricing-card">
+          <h3>Starter</h3>
+          <div class="price">$19 <span>/month</span></div>
+          <ul class="pricing-features">
+            <li><i class="fas fa-check"></i> Up to 5 users</li>
+            <li><i class="fas fa-check"></i> 10 GB storage</li>
+            <li><i class="fas fa-check"></i> Basic analytics</li>
+            <li><i class="fas fa-check"></i> Email support</li>
+            <li><i class="fas fa-check"></i> Up to 3 integrations</li>
+          </ul>
+          <button class="btn btn-outline" style="width: 100%;">Select</button>
+        </div>
+        <div class="pricing-card popular">
+          <div class="popular-badge">Popular</div>
+          <h3>Professional</h3>
+          <div class="price">$49 <span>/month</span></div>
+          <ul class="pricing-features">
+            <li><i class="fas fa-check"></i> Up to 15 users</li>
+            <li><i class="fas fa-check"></i> 50 GB storage</li>
+            <li><i class="fas fa-check"></i> Advanced analytics</li>
+            <li><i class="fas fa-check"></i> Priority support</li>
+            <li><i class="fas fa-check"></i> Up to 10 integrations</li>
+            <li><i class="fas fa-check"></i> Workflow automation</li>
+          </ul>
+          <button class="btn btn-primary" style="width: 100%;">Select</button>
+        </div>
+        <div class="pricing-card">
+          <h3>Enterprise</h3>
+          <div class="price">$99 <span>/month</span></div>
+          <ul class="pricing-features">
+            <li><i class="fas fa-check"></i> Unlimited users</li>
+            <li><i class="fas fa-check"></i> 200 GB storage</li>
+            <li><i class="fas fa-check"></i> Premium analytics</li>
+            <li><i class="fas fa-check"></i> 24/7 support</li>
+            <li><i class="fas fa-check"></i> Unlimited integrations</li>
+            <li><i class="fas fa-check"></i> Custom solutions</li>
+            <li><i class="fas fa-check"></i> Personal manager</li>
+          </ul>
+          <button class="btn btn-outline" style="width: 100%;">Select</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-title">
+        <h2>What Our Customers Say</h2>
+        <p>See how Cloudly has helped other companies</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            "Cloudly completely transformed how we manage our business. Now the whole team works more efficiently, and reports are available with one click."
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="https://via.placeholder.com/100x100?text=User+1" alt="User avatar">
+            </div>
+            <div class="author-info">
+              <h4>John Smith</h4>
+              <p>Director, TechPro Inc.</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            "We've tried many similar solutions, but Cloudly exceeded all expectations. We were especially impressed with the automation of routine tasks that saved us hundreds of hours."
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="https://via.placeholder.com/100x100?text=User+2" alt="User avatar">
+            </div>
+            <div class="author-info">
+              <h4>Sarah Johnson</h4>
+              <p>CEO, Digital Agency</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            "Excellent service with an intuitive interface. Our team mastered the platform in a couple of days. Now all processes are centralized and transparent."
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img src="https://via.placeholder.com/100x100?text=User+3" alt="User avatar">
+            </div>
+            <div class="author-info">
+              <h4>Michael Brown</h4>
+              <p>Operations Director, Retail Chain</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to Optimize Your Business?</h2>
+      <p>Try Cloudly free for 14 days. No credit card required, no obligations.</p>
+      <button class="btn" id="cta-signup-btn">Start Free Trial</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Cloudly</h3>
+          <p>All-in-one SaaS solution for business process automation and team management.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Product</h3>
+          <ul class="footer-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#">Integrations</a></li>
+            <li><a href="#">Updates</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Webinars</a></li>
+            <li><a href="#">API</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Company</h3>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Partner Program</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 Cloudly. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Signup Modal -->
+  <div class="modal" id="signup-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Create Account</h2>
+      <form id="signup-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required>
+        </div>
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input type="text" id="company">
+        </div>
+        <div class="form-group">
+          <label for="plan">Pricing Plan</label>
+          <select id="plan">
+            <option value="starter">Starter ($19/mo)</option>
+            <option value="professional">Professional ($49/mo)</option>
+            <option value="enterprise">Enterprise ($99/mo)</option>
+          </select>
+        </div>
+        <button type="submit" class="submit-btn">Start Free Trial</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Open modal
+    document.getElementById('signup-btn').addEventListener('click', function() {
+      document.getElementById('signup-modal').style.display = 'flex';
+    });
+    
+    document.getElementById('hero-signup-btn').addEventListener('click', function() {
+      document.getElementById('signup-modal').style.display = 'flex';
+    });
+    
+    document.getElementById('cta-signup-btn').addEventListener('click', function() {
+      document.getElementById('signup-modal').style.display = 'flex';
+    });
+    
+    // Close modal
+    document.querySelector('.close-modal').addEventListener('click', function() {
+      document.getElementById('signup-modal').style.display = 'none';
+    });
+    
+    // Close when clicking outside modal
+    window.addEventListener('click', function(event) {
+      if (event.target == document.getElementById('signup-modal')) {
+        document.getElementById('signup-modal').style.display = 'none';
+      }
+    });
+    
+    // Form submission
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Registration successful! We have sent you a confirmation email.');
+      document.getElementById('signup-modal').style.display = 'none';
+      // Here you can add AJAX request to send data to server
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
